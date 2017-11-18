@@ -31,7 +31,7 @@ public class TimeExecutionTest extends TestCase {
      */
     @Test
     public void shouldLogExecutionTimeForLoadingData() {
-        performanceService.loadBusRoutesCoordinatesFromFile("src/main/resources/example/10000_rows");
+        performanceService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/10000_rows");
         performanceService.findAllBusCoordinates();
         assertTrue(performanceService.checkIfExistsAnyDirectBusRouteBetweenStations(20, 30).getHasDirectBusRoute());
         assertFalse(performanceService.checkIfExistsAnyDirectBusRouteBetweenStations(-1, 40).getHasDirectBusRoute());

@@ -1,5 +1,6 @@
 package com.adamzurada.bus_routes_service.performance.service;
 
+import com.adamzurada.bus_routes_service.dto.BusStationsConnectionRequestDto;
 import com.adamzurada.bus_routes_service.dto.BusStationsConnectionResponseDto;
 import com.adamzurada.bus_routes_service.model.BusCoordinates;
 import com.adamzurada.bus_routes_service.performance.aspect.LogExecutionTime;
@@ -31,6 +32,6 @@ public class PerformanceService {
 
     @LogExecutionTime
     public BusStationsConnectionResponseDto checkIfExistsAnyDirectBusRouteBetweenStations(Integer depSid, Integer arrSid) {
-        return busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(depSid, arrSid);
+        return busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(depSid, arrSid));
     }
 }
