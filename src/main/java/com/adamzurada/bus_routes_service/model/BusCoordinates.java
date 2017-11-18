@@ -1,8 +1,12 @@
 package com.adamzurada.bus_routes_service.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BusCoordinates {
 
     /**
@@ -15,9 +19,4 @@ public class BusCoordinates {
      */
     private int stationId;
 
-    /**
-     * Position within route
-     * values from 0 to n where n is quantity of stations within a route
-     */
-    private int position;
 }
