@@ -1,6 +1,7 @@
 package com.adamzurada.bus_routes_service.service;
 
 import com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests;
+import com.adamzurada.bus_routes_service.dto.BusStationsConnectionRequestDto;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -24,12 +25,17 @@ public class DataLoadingServiceTest extends TestCase {
 
     @Test
     public void givenDepAndArrSid_whenChecking_thenReturnValidValues() {
-        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/main/resources/example/data");
+        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/data");
         log.info("All Bus coordinates: {}", dataLoadingService.findAllBusCoordinates());
-        assertTrue(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(121, 114).getHasDirectBusRoute());
-        assertFalse(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(121, -1).getHasDirectBusRoute());
-        assertFalse(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(2, 121).getHasDirectBusRoute());
-        assertTrue(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(169, 11).getHasDirectBusRoute());
+        assertTrue(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(121, 114)).getHasDirectBusRoute());
+        assertFalse(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(121, -1)).getHasDirectBusRoute());
+        assertFalse(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(2, 121)).getHasDirectBusRoute());
+        assertTrue(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(169, 11)).getHasDirectBusRoute());
     }
+
+    public void givenEmptyFile_whenLoadingData_thenReturnError(){}
+    public void givenInvalidFile_whenLoadingData_thenReturnError(){}
+    public void givenFileWithIllegalCharacters_whenLoadingData_thenReturnError(){}
+
 
 }

@@ -1,5 +1,6 @@
 package com.adamzurada.bus_routes_service.service;
 
+import com.adamzurada.bus_routes_service.dto.BusStationsConnectionRequestDto;
 import com.adamzurada.bus_routes_service.dto.BusStationsConnectionResponseDto;
 import com.adamzurada.bus_routes_service.model.BusCoordinates;
 import lombok.extern.slf4j.Slf4j;
@@ -22,12 +23,13 @@ public class BusStationsConnectionServiceImpl implements BusStationsConnectionSe
     }
 
     @Override
-    public BusStationsConnectionResponseDto checkIfExistsAnyDirectBusRouteBetweenStations(Integer departureStationId, Integer arrivalStationId) {
-        Map<Integer, Long> routesMap = findAllRoutesHavingRequestedStations(departureStationId, arrivalStationId);
+    public BusStationsConnectionResponseDto checkIfExistsAnyDirectBusRouteBetweenStations(BusStationsConnectionRequestDto requestDto) {
+        //TODO validate if not the same
+        Map<Integer, Long> routesMap = findAllRoutesHavingRequestedStations(requestDto.getDep_sid(), requestDto.getArr_sid());
         boolean hasDirectBusRoute = isAnyDirectBusRouteBetweenStations(routesMap);
         return BusStationsConnectionResponseDto.builder()
-                .departureStationId(departureStationId)
-                .arrivalStationId(arrivalStationId)
+                .departureStationId(requestDto.getDep_sid())
+                .arrivalStationId(requestDto.getArr_sid())
                 .hasDirectBusRoute(hasDirectBusRoute)
                 .build();
     }
