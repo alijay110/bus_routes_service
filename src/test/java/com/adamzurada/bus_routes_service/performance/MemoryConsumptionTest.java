@@ -8,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static com.adamzurada.bus_routes_service.performance.PerformanceTestUtils.measureObjectSize;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BusRoutesServiceApplicationTests.class)
@@ -21,34 +20,30 @@ public class MemoryConsumptionTest {
         BusCoordinatesWithWrappers busCoordinatesWithWrappers = new BusCoordinatesWithWrappers();
         Integer integerValue = 678;
         BusCoordinatesWithPrimitives busCoordinatesWithPrimitives = new BusCoordinatesWithPrimitives();
-        log.info("Each Integer wrapper class size: {}", measureObjectSize(integerValue));
-        log.info("Object retained size with wrapping Integers: {}", measureObjectSize(busCoordinatesWithWrappers));
-        log.info("Object retained size with primitive ints: {}", measureObjectSize(busCoordinatesWithPrimitives));
-        log.info("Object with wrappers takes {} more bytes.", measureObjectSize(busCoordinatesWithWrappers) - measureObjectSize(busCoordinatesWithPrimitives));
+        log.info("Each Integer wrapper class size: {}", PerformanceTestUtils.measureObjectSize(integerValue));
+        log.info("Object retained size with wrapping Integers: {}", PerformanceTestUtils.measureObjectSize(busCoordinatesWithWrappers));
+        log.info("Object retained size with primitive ints: {}", PerformanceTestUtils.measureObjectSize(busCoordinatesWithPrimitives));
+        log.info("Object with wrappers takes {} more bytes.", PerformanceTestUtils.measureObjectSize(busCoordinatesWithWrappers) - PerformanceTestUtils.measureObjectSize(busCoordinatesWithPrimitives));
     }
 
 
     static class BusCoordinatesWithWrappers {
         private Integer routeId;
         private Integer stationId;
-        private Integer position;
 
         public BusCoordinatesWithWrappers() {
             this.routeId = 444;
             this.stationId = 555;
-            this.position = 666;
         }
     }
 
     static class BusCoordinatesWithPrimitives {
         private int routeId;
         private int stationId;
-        private int positionId;
 
         public BusCoordinatesWithPrimitives() {
             this.routeId = 444;
             this.stationId = 555;
-            this.positionId = 666;
         }
     }
 }
