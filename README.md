@@ -63,7 +63,7 @@ You need to build the application firstly, then you can run it.
 **To build**
 Invoke **./service.sh dev_build** in microservice directory.
 
-**To Run:**
+**To Run**
 Invoke
 **./service.sh dev_run --file.path=my/data/example/file**
 
