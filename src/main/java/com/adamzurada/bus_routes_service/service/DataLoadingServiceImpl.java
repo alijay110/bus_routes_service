@@ -1,7 +1,10 @@
 package com.adamzurada.bus_routes_service.service;
 
+import com.adamzurada.bus_routes_service.exception.CustomException;
+import com.adamzurada.bus_routes_service.exception.ErrorCode;
 import com.adamzurada.bus_routes_service.mapper.BusCoordinatesMapper;
 import com.adamzurada.bus_routes_service.model.BusCoordinates;
+import com.adamzurada.bus_routes_service.validator.FileValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,7 @@ public class DataLoadingServiceImpl implements DataLoadingService {
     @Override
     public Set<BusCoordinates> findAllBusCoordinates() {
         if (busCoordinates == null) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.NO_DATA_LOADED_ON_THE_SERVER);
         }
         return busCoordinates;
     }
@@ -50,7 +53,7 @@ public class DataLoadingServiceImpl implements DataLoadingService {
         try (BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
             br.lines().skip(FILE_HEADER_LINES).forEach(this::consumeLineOfData);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.FILE_READING_ERROR);
         }
     }
 

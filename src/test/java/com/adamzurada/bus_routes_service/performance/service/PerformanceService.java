@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * This class wraps other application services with logging execution time on each method
+ */
 @Service
 public class PerformanceService {
 

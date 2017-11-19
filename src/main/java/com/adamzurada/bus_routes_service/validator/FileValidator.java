@@ -1,5 +1,7 @@
 package com.adamzurada.bus_routes_service.validator;
 
+import com.adamzurada.bus_routes_service.exception.CustomException;
+import com.adamzurada.bus_routes_service.exception.ErrorCode;
 import lombok.experimental.UtilityClass;
 
 import java.util.Arrays;
@@ -7,7 +9,8 @@ import java.util.Arrays;
 @UtilityClass
 public class FileValidator {
 
-    private static final int MIN_ROW_LENGTH = 3;
+    private static final int MIN_LINE_LENGTH = 3;
+    private static final int MIN_LINE_QUANTITY = 2;
     /**
      * Validates file line as a string
      *
@@ -26,13 +29,13 @@ public class FileValidator {
      * @return mapped integer array
      */
     public static int[] validateRouteDataAndMapToIntegerArray(String[] routeData) {
-        if (routeData.length < MIN_ROW_LENGTH) {
-            throw new RuntimeException();
+        if (routeData.length < MIN_LINE_LENGTH) {
+            throw new CustomException(ErrorCode.FILE_HAS_NOT_ENOUGH_DATA);
         }
         try {
             return Arrays.stream(routeData).mapToInt(Integer::parseInt).toArray();
         } catch (NumberFormatException ex) {
-            throw new RuntimeException();
+            throw new CustomException(ErrorCode.FILE_CONTAINS_INVALID_CHARACTERS);
         }
 
     }

@@ -16,7 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class MemoryConsumptionTest {
 
     /**
-     * Purpose of this test is to show why I decided to go with int instead of Integer wrapping classes for my model.
+     * Purpose of this test is to show why I decided to go with int instead of Integer wrapping classes for my model in {@link com.adamzurada.bus_routes_service.model.BusCoordinates}.
      * It saves retained size approx. 32 bytes for each created object.
      */
     @Test

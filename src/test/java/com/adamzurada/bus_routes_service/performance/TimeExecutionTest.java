@@ -11,6 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests.HUGE_DATA_FILE_PATH;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BusRoutesServiceApplicationTests.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
@@ -31,7 +33,7 @@ public class TimeExecutionTest extends TestCase {
      */
     @Test
     public void shouldLogExecutionTimeForLoadingData() {
-        performanceService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/10000_rows");
+        performanceService.loadBusRoutesCoordinatesFromFile(HUGE_DATA_FILE_PATH);
         performanceService.findAllBusCoordinates();
         assertTrue(performanceService.checkIfExistsAnyDirectBusRouteBetweenStations(20, 30).getHasDirectBusRoute());
         assertFalse(performanceService.checkIfExistsAnyDirectBusRouteBetweenStations(-1, 40).getHasDirectBusRoute());
