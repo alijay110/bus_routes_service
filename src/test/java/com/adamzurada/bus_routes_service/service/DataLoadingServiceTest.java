@@ -12,6 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests.EXAMPLE_DATA_FILE_PATH;
+import static com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests.ILLEGAL_CHARACTERS_DATA_FILE_PATH;
+import static com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests.NOT_EXISTING_FILE_PATH;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = BusRoutesServiceApplicationTests.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS)
@@ -25,8 +29,8 @@ public class DataLoadingServiceTest extends TestCase {
     private BusStationsConnectionService busStationsConnectionService;
 
     @Test
-    public void givenDepAndArrSid_whenChecking_thenReturnValidValues() {
-        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/data");
+    public void givenDepAndArrSid_whenLoadingDataAndCheckingDirectConnection_thenReturnValidValues() {
+        dataLoadingService.loadBusRoutesCoordinatesFromFile(EXAMPLE_DATA_FILE_PATH);
         log.info("All Bus coordinates: {}", dataLoadingService.findAllBusCoordinates());
         assertTrue(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(121, 114)).getHasDirectBusRoute());
         assertFalse(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(121, -1)).getHasDirectBusRoute());
@@ -36,14 +40,12 @@ public class DataLoadingServiceTest extends TestCase {
 
     @Test(expected = CustomException.class)
     public void givenInvalidFile_whenLoadingData_thenReturnError(){
-        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/not_existing");
-
+        dataLoadingService.loadBusRoutesCoordinatesFromFile(NOT_EXISTING_FILE_PATH);
     }
 
     @Test(expected = CustomException.class)
     public void givenFileWithIllegalCharacters_whenLoadingData_thenReturnError(){
-        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/illegalCharacters");
-
+        dataLoadingService.loadBusRoutesCoordinatesFromFile(ILLEGAL_CHARACTERS_DATA_FILE_PATH);
     }
 
 
