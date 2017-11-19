@@ -63,11 +63,16 @@ You need to build the application firstly, then you can run it.
 **To build**
 Invoke **./service.sh dev_build** in microservice directory.
 
-**To Run**
+**To run**
 Invoke
 **./service.sh dev_run --file.path=my/data/example/file**
 
 Where --file.path is an optional argument. When not set, the default example bus data provider is used from data/example subdirectory.
+
+Default server port is 8088.
+You can override server port settings by adding command line argument **--server.port** i.e: 
+
+**./service.sh dev_run --server.port=8082**
 
 ### Tests
 
