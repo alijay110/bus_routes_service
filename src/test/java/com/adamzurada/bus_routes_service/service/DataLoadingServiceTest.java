@@ -2,6 +2,7 @@ package com.adamzurada.bus_routes_service.service;
 
 import com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests;
 import com.adamzurada.bus_routes_service.dto.BusStationsConnectionRequestDto;
+import com.adamzurada.bus_routes_service.exception.CustomException;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -33,9 +34,17 @@ public class DataLoadingServiceTest extends TestCase {
         assertTrue(busStationsConnectionService.checkIfExistsAnyDirectBusRouteBetweenStations(new BusStationsConnectionRequestDto(169, 11)).getHasDirectBusRoute());
     }
 
-    public void givenEmptyFile_whenLoadingData_thenReturnError(){}
-    public void givenInvalidFile_whenLoadingData_thenReturnError(){}
-    public void givenFileWithIllegalCharacters_whenLoadingData_thenReturnError(){}
+    @Test(expected = CustomException.class)
+    public void givenInvalidFile_whenLoadingData_thenReturnError(){
+        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/not_existing");
+
+    }
+
+    @Test(expected = CustomException.class)
+    public void givenFileWithIllegalCharacters_whenLoadingData_thenReturnError(){
+        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/illegalCharacters");
+
+    }
 
 
 }

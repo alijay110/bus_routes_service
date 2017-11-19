@@ -1,6 +1,7 @@
 package com.adamzurada.bus_routes_service.web;
 
 import com.adamzurada.bus_routes_service.BusRoutesServiceApplicationTests;
+import com.adamzurada.bus_routes_service.exception.ErrorCode;
 import com.adamzurada.bus_routes_service.service.DataLoadingService;
 import junit.framework.TestCase;
 import lombok.extern.slf4j.Slf4j;
@@ -69,8 +70,28 @@ public class BusStationsControllerTest extends TestCase {
                 .andExpect(jsonPath("$.arr_sid", is(114)))
                 .andReturn().getResponse().getContentAsString());
     }
-    //TODO add tests
-    public void givenInvalidParameters_whenCallingEndpoint_thenReturnError(){}
-    public void givenTheSameDepAndArrSids_whenCallingEndpoint_thenReturnError(){}
-    public void givenNoData_whenCallingEndpoint_thenReturnError(){}
+
+    @Test
+    public void givenInvalidParameters_whenCallingEndpoint_thenReturnError() throws Exception {
+        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/data");
+        log.info(mockMvc.perform(
+                get("/api/direct?arr_sid=114")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errorCode", is(ErrorCode.INVALID_REQUEST_PARAMS.getCode())))
+                .andReturn().getResponse().getContentAsString());
+    }
+
+    @Test
+    public void givenTheSameDepAndArrSids_whenCallingEndpoint_thenReturnError() throws Exception {
+        dataLoadingService.loadBusRoutesCoordinatesFromFile("src/test/resources/example/data");
+        log.info(mockMvc.perform(
+                get("/api/direct?arr_sid=114&dep_sid=114")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errorCode", is(ErrorCode.DEP_AND_ARR_IDS_ARE_THE_SAME.getCode())))
+                .andReturn().getResponse().getContentAsString());
+    }
 }

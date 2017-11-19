@@ -2,12 +2,15 @@ package com.adamzurada.bus_routes_service.service;
 
 import com.adamzurada.bus_routes_service.dto.BusStationsConnectionRequestDto;
 import com.adamzurada.bus_routes_service.dto.BusStationsConnectionResponseDto;
+import com.adamzurada.bus_routes_service.exception.CustomException;
+import com.adamzurada.bus_routes_service.exception.ErrorCode;
 import com.adamzurada.bus_routes_service.model.BusCoordinates;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -24,7 +27,7 @@ public class BusStationsConnectionServiceImpl implements BusStationsConnectionSe
 
     @Override
     public BusStationsConnectionResponseDto checkIfExistsAnyDirectBusRouteBetweenStations(BusStationsConnectionRequestDto requestDto) {
-        //TODO validate if not the same
+        validateRequestDto(requestDto);
         Map<Integer, Long> routesMap = findAllRoutesHavingRequestedStations(requestDto.getDep_sid(), requestDto.getArr_sid());
         boolean hasDirectBusRoute = isAnyDirectBusRouteBetweenStations(routesMap);
         return BusStationsConnectionResponseDto.builder()
@@ -70,4 +73,11 @@ public class BusStationsConnectionServiceImpl implements BusStationsConnectionSe
     private Predicate<BusCoordinates> filterByDepartureAndArrivalStationIds(Integer departureStationId, Integer arrivalStationId) {
         return busCoordinates -> busCoordinates.getStationId() == departureStationId || busCoordinates.getStationId() == arrivalStationId;
     }
+
+    private void validateRequestDto(BusStationsConnectionRequestDto dto){
+        if(Objects.equals(dto.getArr_sid(), dto.getDep_sid())){
+            throw new CustomException(ErrorCode.DEP_AND_ARR_IDS_ARE_THE_SAME);
+        }
+    }
+
 }
