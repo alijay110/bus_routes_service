@@ -5,6 +5,7 @@ import com.adamzurada.bus_routes_service.dto.BusStationsConnectionResponseDto;
 import com.adamzurada.bus_routes_service.exception.CustomException;
 import com.adamzurada.bus_routes_service.exception.ErrorCode;
 import com.adamzurada.bus_routes_service.model.BusCoordinates;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,14 +17,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class BusStationsConnectionServiceImpl implements BusStationsConnectionService {
 
     private final DataLoadingService dataLoadingService;
-
-    @Autowired
-    public BusStationsConnectionServiceImpl(DataLoadingService dataLoadingService) {
-        this.dataLoadingService = dataLoadingService;
-    }
 
     @Override
     public BusStationsConnectionResponseDto checkIfExistsAnyDirectBusRouteBetweenStations(BusStationsConnectionRequestDto requestDto) {
