@@ -5,7 +5,7 @@
 
 	<groupId>com.adamzurada</groupId>
 	<artifactId>bus_routes_service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>bus_routes_service</name>
@@ -93,25 +93,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-<!--
-			&lt;!&ndash; copies  dependencies into the target directory &ndash;&gt;
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>process-test-classes</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<includeArtifactIds>jamm</includeArtifactIds>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
 
 			<!-- executes test with java agent options of the JVM -->
 			<plugin>
