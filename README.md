@@ -26,7 +26,7 @@ To accomplish the challenge requirements:
 
 I decided that there is no restriction in station position along a route.
 For example when we have routeId:1 and its stationIds:[1,2,3,4] it means that 
-when we want to check if there is dep_sid=1 and arr_sid=4 it would return true for dep_sid=4 and arr_sid=1
+when requesting dep_sid=1 and arr_sid=4 returns true it would return true for dep_sid=4 and arr_sid=1 also.
 
 *The bus route data file will be a local file and your service will get the path to file as the first command line argument. Your service will get restarted if the file or its location changes.*
 
