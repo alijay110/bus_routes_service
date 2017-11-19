@@ -56,6 +56,28 @@ There are defined a few error codes in case of runtime exceptions:
     FILE_CONTAINS_INVALID_CHARACTERS - 1004
     DEP_AND_ARR_IDS_ARE_THE_SAME - 1005
 
+### How to start
+
+You need to build the application firstly, then you can run it.
+
+**To build**
+Invoke **./service.sh dev_build** in microservice directory.
+
+**To Run:**
+Invoke
+**./service.sh dev_run --file.path=my/data/example/file**
+
+Where --file.path is an optional argument. When not set, the default example bus data provider is used from data/example subdirectory.
+
+For windows:
+**./service.sh dev_run --file.path=C:\\data\\example\\file**
+
+
+### Tests
+
+There is coverage of unit tests for both services and rest controllers.
+
+I included additional performance tests regarding log execution time of methods (Using Spring AOP) and memory consumption by objects (using JAMM open source library). 
 
 
 
