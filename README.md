@@ -69,10 +69,6 @@ Invoke
 
 Where --file.path is an optional argument. When not set, the default example bus data provider is used from data/example subdirectory.
 
-For windows:
-**./service.sh dev_run --file.path=C:\\data\\example\\file**
-
-
 ### Tests
 
 There is coverage of unit tests for both services and rest controllers.
