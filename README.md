@@ -1,6 +1,6 @@
 # Bus Route Challenge
 
-###Introduction
+### Introduction
 
 This is my solution to Bus Route Challenge.
 For more information about Bus Route Challenge please refer to CHALLENGE.md file.
