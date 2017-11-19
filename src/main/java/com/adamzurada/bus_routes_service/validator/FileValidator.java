@@ -10,7 +10,6 @@ import java.util.Arrays;
 public class FileValidator {
 
     private static final int MIN_LINE_LENGTH = 3;
-    private static final int MIN_LINE_QUANTITY = 2;
     /**
      * Validates file line as a string
      *
