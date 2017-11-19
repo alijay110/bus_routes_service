@@ -42,11 +42,11 @@ When you run **./service.sh dev_run** without any file path, default file is bei
 
 WARNING: The docker command has not been tested ant it might not work.
 
-###Requirements
+### Requirements
 
 To run service.sh please make sure you have Maven and Java installed locally.
 
-###Error Codes
+### Error Codes
 There are defined a few error codes in case of runtime exceptions:
 
     INVALID_REQUEST_PARAMS - 1000
